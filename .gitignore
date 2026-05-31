@@ -1,0 +1,19 @@
+.DS_Store
+*.xcuserstate
+xcuserdata/
+
+# Build output and local tool state.
+DerivedData/
+.build/
+build/
+outputs/
+*.log
+
+# Private local Google configuration.
+*.local.plist
+*.local.xcconfig
+GoogleService-Info.plist
+
+# Local scratch folders.
+.private/
+.local-artifacts/

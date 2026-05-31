@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DEVICE_ACCESS_ENTERPRISE_ID</key>
+	<string></string>
+	<key>PUBSUB_GOOGLE_CLOUD_PROJECT_ID</key>
+	<string></string>
+	<key>PUBSUB_TOPIC_ID</key>
+	<string></string>
+	<key>WORKLOAD_IDENTITY_AUDIENCE</key>
+	<string></string>
+	<key>PUBSUB_SERVICE_ACCOUNT_EMAIL</key>
+	<string></string>
+</dict>
+</plist>

@@ -1,0 +1,3 @@
+// Copy this file to BuildSettings.local.xcconfig and set local Google OAuth values.
+GOOGLE_OAUTH_CLIENT_ID =
+GOOGLE_OAUTH_REVERSED_CLIENT_ID =

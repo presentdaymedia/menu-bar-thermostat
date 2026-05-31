@@ -1,0 +1,4 @@
+GOOGLE_OAUTH_CLIENT_ID =
+GOOGLE_OAUTH_REVERSED_CLIENT_ID =
+
+#include? "BuildSettings.local.xcconfig"

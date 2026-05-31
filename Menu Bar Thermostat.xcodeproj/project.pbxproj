@@ -1,0 +1,874 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E13FE132E93563C00E0C965 /* MenuBarStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E13FE122E93563C00E0C965 /* MenuBarStatusItem.swift */; };
+		0E1CD65B2D21F83E005A2B8C /* GoogleAPIClientForRESTCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1CD65A2D21F83E005A2B8C /* GoogleAPIClientForRESTCore */; };
+		0E1CD65D2D21F83E005A2B8C /* GoogleAPIClientForREST_ACMEDNS in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1CD65C2D21F83E005A2B8C /* GoogleAPIClientForREST_ACMEDNS */; };
+		0E1CD65F2D21F83E005A2B8C /* GoogleAPIClientForREST_AIPlatformNotebooks in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1CD65E2D21F83E005A2B8C /* GoogleAPIClientForREST_AIPlatformNotebooks */; };
+		0E1CD6612D21F83E005A2B8C /* GoogleAPIClientForREST_APIGateway in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1CD6602D21F83E005A2B8C /* GoogleAPIClientForREST_APIGateway */; };
+		0E1CD6632D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1CD6622D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement */; };
+		0E36E06B2EC8005000F858B8 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 0E36E06A2EC8004F00F858B8 /* AppIcon.icon */; };
+		0E7B7F632E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B7F622E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift */; };
+		0E7D7BBB2E01F759000039D4 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 0E7D7BBA2E01F759000039D4 /* LaunchAtLogin */; };
+		0E84F60C2DF8E3F9007C643D /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E84F60B2DF8E3F9007C643D /* KeychainManager.swift */; };
+		0ED9612C2BFD3A8B009BF814 /* MenuBarThermostatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9612B2BFD3A8B009BF814 /* MenuBarThermostatApp.swift */; };
+		0ED961302BFD3A8C009BF814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED9612F2BFD3A8C009BF814 /* Assets.xcassets */; };
+		0ED961332BFD3A8C009BF814 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ED961322BFD3A8C009BF814 /* Preview Assets.xcassets */; };
+		0ED9613C2BFD3AA9009BF814 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED9613B2BFD3AA9009BF814 /* Alamofire */; };
+		0ED961412BFD3AB1009BF814 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED961402BFD3AB1009BF814 /* GoogleSignIn */; };
+		0ED961432BFD3AB1009BF814 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED961422BFD3AB1009BF814 /* GoogleSignInSwift */; };
+		0EF4D0102FA1CDEF00AAA001 /* Logging+Redaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF4D00F2FA1CDEF00AAA001 /* Logging+Redaction.swift */; };
+		1305C984CD4FF01D088CF948 /* GoogleSDMPubSubMergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA525AD0C4D2ACB5BDFF986 /* GoogleSDMPubSubMergeTests.swift */; };
+		1DE64CB06904F9F3CA9FAFDF /* AppState+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41A288A8E86A89748532504 /* AppState+Authentication.swift */; };
+		2F89A0012F89A0012F89A001 /* AppState+ComputedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F89A0112F89A0112F89A011 /* AppState+ComputedState.swift */; };
+		2F89A0022F89A0022F89A002 /* AppState+SessionLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F89A0122F89A0122F89A012 /* AppState+SessionLifecycle.swift */; };
+		2F89A0032F89A0032F89A003 /* AppState+Freshness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F89A0132F89A0132F89A013 /* AppState+Freshness.swift */; };
+		2F89A0042F89A0042F89A004 /* AppState+DevicePolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F89A0142F89A0142F89A014 /* AppState+DevicePolling.swift */; };
+		2F89A0052F89A0052F89A005 /* AppState+RetryScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F89A0152F89A0152F89A015 /* AppState+RetryScheduling.swift */; };
+		2F88A0012F88A0012F88A001 /* GoogleSDMDeviceLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88A0112F88A0112F88A011 /* GoogleSDMDeviceLoading.swift */; };
+		2F88A0022F88A0022F88A002 /* GoogleSDMDeviceCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88A0122F88A0122F88A012 /* GoogleSDMDeviceCommands.swift */; };
+		2F88A0032F88A0032F88A003 /* GoogleSDMDeviceAccessFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F88A0132F88A0132F88A013 /* GoogleSDMDeviceAccessFailure.swift */; };
+		2F76CF6584D49C8D8A48B5E9 /* GoogleSDMPubSub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F6A77FA5E2DCA5EB267DED /* GoogleSDMPubSub.swift */; };
+		2F87A0012F87A0012F87A001 /* GoogleSDMPubSubModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87A0112F87A0112F87A011 /* GoogleSDMPubSubModels.swift */; };
+		2F87A0022F87A0022F87A002 /* GoogleSDMPubSubPolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87A0122F87A0122F87A012 /* GoogleSDMPubSubPolling.swift */; };
+		2F87A0032F87A0032F87A003 /* GoogleSDMPubSubEventMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87A0132F87A0132F87A013 /* GoogleSDMPubSubEventMerge.swift */; };
+		2F87A0042F87A0042F87A004 /* GoogleSDMPubSubSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F87A0142F87A0142F87A014 /* GoogleSDMPubSubSubscription.swift */; };
+		32DECF887918901F0C6134A3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8ACC3569C6B1405CD2E76E /* Models.swift */; };
+		3B7F16EA8571FE3AC5499A90 /* MenuBarStatusItemController+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08626D45A75FACBBDD484F7 /* MenuBarStatusItemController+Stub.swift */; };
+		3BDB352AE555DFE52528D686 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE99E0A1FE1E8A846B854641 /* MockURLProtocol.swift */; };
+		48F2A691E0D44A6A9B281B80 /* GoogleSDMModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F2A690E0D44A6A9B281B80 /* GoogleSDMModels.swift */; };
+		5A12E5F66EAD47A48B8DD130 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A12E5F56EAD47A48B8DD130 /* AppConfig.swift */; };
+		677E4F4A551B933C2684CDBF /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED84D9328F3B714B089A6A9 /* KeychainManager.swift */; };
+		2F9500012F9500012F950001 /* AppConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9500112F9500112F950011 /* AppConfigTests.swift */; };
+		2F9500022F9500022F950002 /* GoogleSDMDeviceLoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9500122F9500122F950012 /* GoogleSDMDeviceLoadingTests.swift */; };
+		2F9500032F9500032F950003 /* SetpointSliderLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9500132F9500132F950013 /* SetpointSliderLogicTests.swift */; };
+		2F9500042F9500042F950004 /* TemperatureUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9500142F9500142F950014 /* TemperatureUnitTests.swift */; };
+		2F9500052F9500052F950005 /* ThermostatSnapshotMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9500152F9500152F950015 /* ThermostatSnapshotMappingTests.swift */; };
+		6F7730554FEF37C36D8EE521 /* AppStateConnectionHealthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C781F656F6082BB1C9B3DC69 /* AppStateConnectionHealthTests.swift */; };
+		7541C568FF5B6FFCFF096190 /* AppStateCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1003AA919A6837C334CA2 /* AppStateCore.swift */; };
+		77E6713F6CC062F36EBC9478 /* GoogleSDMDeviceCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C6040E005514F6738A6C3D /* GoogleSDMDeviceCommandTests.swift */; };
+		8B0286470E85D874A58B64EF /* TestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D10AF798BA54DACE4ADE884 /* TestFixtures.swift */; };
+		A9EDC2F9110A6325DE6356C0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDC58E7A00C5B300E7B8128E /* Cocoa.framework */; };
+		BC19AF14507B6AEF99109F1D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED9613B2BFD3AA9009BF814 /* Alamofire */; };
+		C039EA185FEBA4D3562CE2B1 /* Logging+Redaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9ACAB32771A752939FA3F39 /* Logging+Redaction.swift */; };
+		C6CEBBDE926FF8ECE93958F7 /* WorkloadIdentityTokenProvider+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB18F16B839143503A0B2C9 /* WorkloadIdentityTokenProvider+Stub.swift */; };
+		C81C18120177293506B638BB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C05295AEEE50479AAE5509 /* XCTest.framework */; };
+		DE7C1D08998602E324205CFE /* PollManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BDB9081037BDEE06A1CD22 /* PollManager.swift */; };
+		E274BA1EC6BA43F5A03378B2 /* Thermostat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E274BA1DC6BA43F5A03378B2 /* Thermostat.swift */; };
+		F457DE5EC5B7239C04C48D04 /* GoogleSDMDeviceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94E7DC06B4C9CDF13C95C74 /* GoogleSDMDeviceAPI.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0ED961462BFD3E11009BF814 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0E13FE122E93563C00E0C965 /* MenuBarStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar/MenuBarStatusItem.swift; sourceTree = "<group>"; };
+		0E36E06A2EC8004F00F858B8 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		0E490E6D2E260A4000E5CFB1 /* Menu Bar ThermostatDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Menu Bar Thermostat/Resources/Menu Bar ThermostatDebug.entitlements"; sourceTree = "<group>"; };
+		0E7B7F622E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth/WorkloadIdentityTokenProvider.swift; sourceTree = "<group>"; };
+		0E84F6092DF8DC2A007C643D /* PollManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState/PollManager.swift; sourceTree = "<group>"; };
+		0E84F60B2DF8E3F9007C643D /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth/KeychainManager.swift; sourceTree = "<group>"; };
+		0ED84D9328F3B714B089A6A9 /* KeychainManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainManager.swift; path = "Menu Bar Thermostat/Auth/KeychainManager.swift"; sourceTree = "<group>"; };
+		0ED961282BFD3A8B009BF814 /* Menu Bar Thermostat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Menu Bar Thermostat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ED9612B2BFD3A8B009BF814 /* MenuBarThermostatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/MenuBarThermostatApp.swift; sourceTree = "<group>"; };
+		0ED9612F2BFD3A8C009BF814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		0ED961322BFD3A8C009BF814 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0ED961342BFD3A8C009BF814 /* Menu Bar Thermostat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Resources/Menu Bar Thermostat.entitlements"; sourceTree = "<group>"; };
+		0ED961442BFD3C27009BF814 /* Menu-Bar-Thermostat-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Menu Bar Thermostat/Resources/Menu-Bar-Thermostat-Info.plist"; sourceTree = SOURCE_ROOT; };
+		0EF4D00F2FA1CDEF00AAA001 /* Logging+Redaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities/Logging+Redaction.swift"; sourceTree = "<group>"; };
+		2C8ACC3569C6B1405CD2E76E /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Models.swift; path = "Menu Bar Thermostat/Models/Models.swift"; sourceTree = "<group>"; };
+		2F89A0112F89A0112F89A011 /* AppState+ComputedState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AppState+ComputedState.swift"; path = "Menu Bar Thermostat/AppState/AppState+ComputedState.swift"; sourceTree = "<group>"; };
+		2F89A0122F89A0122F89A012 /* AppState+SessionLifecycle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AppState+SessionLifecycle.swift"; path = "Menu Bar Thermostat/AppState/AppState+SessionLifecycle.swift"; sourceTree = "<group>"; };
+		2F89A0132F89A0132F89A013 /* AppState+Freshness.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AppState+Freshness.swift"; path = "Menu Bar Thermostat/AppState/AppState+Freshness.swift"; sourceTree = "<group>"; };
+		2F89A0142F89A0142F89A014 /* AppState+DevicePolling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AppState+DevicePolling.swift"; path = "Menu Bar Thermostat/AppState/AppState+DevicePolling.swift"; sourceTree = "<group>"; };
+		2F89A0152F89A0152F89A015 /* AppState+RetryScheduling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AppState+RetryScheduling.swift"; path = "Menu Bar Thermostat/AppState/AppState+RetryScheduling.swift"; sourceTree = "<group>"; };
+		2F88A0112F88A0112F88A011 /* GoogleSDMDeviceLoading.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMDeviceLoading.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMDeviceLoading.swift"; sourceTree = "<group>"; };
+		2F88A0122F88A0122F88A012 /* GoogleSDMDeviceCommands.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMDeviceCommands.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMDeviceCommands.swift"; sourceTree = "<group>"; };
+		2F88A0132F88A0132F88A013 /* GoogleSDMDeviceAccessFailure.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMDeviceAccessFailure.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMDeviceAccessFailure.swift"; sourceTree = "<group>"; };
+		2F87A0112F87A0112F87A011 /* GoogleSDMPubSubModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMPubSubModels.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMPubSubModels.swift"; sourceTree = "<group>"; };
+		2F87A0122F87A0122F87A012 /* GoogleSDMPubSubPolling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMPubSubPolling.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMPubSubPolling.swift"; sourceTree = "<group>"; };
+		2F87A0132F87A0132F87A013 /* GoogleSDMPubSubEventMerge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMPubSubEventMerge.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMPubSubEventMerge.swift"; sourceTree = "<group>"; };
+		2F87A0142F87A0142F87A014 /* GoogleSDMPubSubSubscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMPubSubSubscription.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMPubSubSubscription.swift"; sourceTree = "<group>"; };
+		2F9500112F9500112F950011 /* AppConfigTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppConfigTests.swift; sourceTree = "<group>"; };
+		2F9500122F9500122F950012 /* GoogleSDMDeviceLoadingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GoogleSDMDeviceLoadingTests.swift; sourceTree = "<group>"; };
+		2F9500132F9500132F950013 /* SetpointSliderLogicTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SetpointSliderLogicTests.swift; sourceTree = "<group>"; };
+		2F9500142F9500142F950014 /* TemperatureUnitTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TemperatureUnitTests.swift; sourceTree = "<group>"; };
+		2F9500152F9500152F950015 /* ThermostatSnapshotMappingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThermostatSnapshotMappingTests.swift; sourceTree = "<group>"; };
+		39C6040E005514F6738A6C3D /* GoogleSDMDeviceCommandTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GoogleSDMDeviceCommandTests.swift; sourceTree = "<group>"; };
+		48F2A690E0D44A6A9B281B80 /* GoogleSDMModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMModels.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMModels.swift"; sourceTree = "<group>"; };
+		52BDB9081037BDEE06A1CD22 /* PollManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PollManager.swift; path = "Menu Bar Thermostat/AppState/PollManager.swift"; sourceTree = "<group>"; };
+		55F6A77FA5E2DCA5EB267DED /* GoogleSDMPubSub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMPubSub.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMPubSub.swift"; sourceTree = "<group>"; };
+		5A12E5F56EAD47A48B8DD130 /* AppConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppConfig.swift; path = "Menu Bar Thermostat/Configuration/AppConfig.swift"; sourceTree = "<group>"; };
+		5A12E5F86EAD47A48B8DD130 /* BuildSettings.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = BuildSettings.xcconfig; path = "Menu Bar Thermostat/Configuration/BuildSettings.xcconfig"; sourceTree = "<group>"; };
+		5D10AF798BA54DACE4ADE884 /* TestFixtures.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TestFixtures.swift; path = TestSupport/TestFixtures.swift; sourceTree = "<group>"; };
+		6FA525AD0C4D2ACB5BDFF986 /* GoogleSDMPubSubMergeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GoogleSDMPubSubMergeTests.swift; sourceTree = "<group>"; };
+		70273C1B480A064D9ADF7957 /* Menu Bar ThermostatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Menu Bar ThermostatTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		982467D58143E6F7DE15CA41 /* MenuBarStatusItemController+Stub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MenuBarStatusItemController+Stub.swift"; path = "TestSupport/MenuBarStatusItemController+Stub.swift"; sourceTree = "<group>"; };
+		B08626D45A75FACBBDD484F7 /* MenuBarStatusItemController+Stub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MenuBarStatusItemController+Stub.swift"; path = "Menu Bar ThermostatTests/TestSupport/MenuBarStatusItemController+Stub.swift"; sourceTree = "<group>"; };
+		B3A1003AA919A6837C334CA2 /* AppStateCore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppStateCore.swift; path = "Menu Bar Thermostat/AppState/AppStateCore.swift"; sourceTree = "<group>"; };
+		B3C05295AEEE50479AAE5509 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = "<group>"; };
+		B41A288A8E86A89748532504 /* AppState+Authentication.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "AppState+Authentication.swift"; path = "Menu Bar Thermostat/AppState/AppState+Authentication.swift"; sourceTree = "<group>"; };
+		C781F656F6082BB1C9B3DC69 /* AppStateConnectionHealthTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppStateConnectionHealthTests.swift; sourceTree = "<group>"; };
+		C94E7DC06B4C9CDF13C95C74 /* GoogleSDMDeviceAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleSDMDeviceAPI.swift; path = "Menu Bar Thermostat/Providers/GoogleSDM/GoogleSDMDeviceAPI.swift"; sourceTree = "<group>"; };
+		CE99E0A1FE1E8A846B854641 /* MockURLProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockURLProtocol.swift; path = TestSupport/MockURLProtocol.swift; sourceTree = "<group>"; };
+		CFB18F16B839143503A0B2C9 /* WorkloadIdentityTokenProvider+Stub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "WorkloadIdentityTokenProvider+Stub.swift"; path = "Menu Bar ThermostatTests/TestSupport/WorkloadIdentityTokenProvider+Stub.swift"; sourceTree = "<group>"; };
+		D9ACAB32771A752939FA3F39 /* Logging+Redaction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Logging+Redaction.swift"; path = "Menu Bar Thermostat/Utilities/Logging+Redaction.swift"; sourceTree = "<group>"; };
+		E274BA1DC6BA43F5A03378B2 /* Thermostat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Thermostat.swift; path = "Menu Bar Thermostat/Models/Thermostat.swift"; sourceTree = "<group>"; };
+		EB9211FD3B57D83A353C266B /* WorkloadIdentityTokenProvider+Stub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "WorkloadIdentityTokenProvider+Stub.swift"; path = "TestSupport/WorkloadIdentityTokenProvider+Stub.swift"; sourceTree = "<group>"; };
+		EDC58E7A00C5B300E7B8128E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0E13FE1D2E93567500E0C965 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0E13FE272E93568500E0C965 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0E13FE2E2E93568C00E0C965 /* AppState */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = AppState;
+			sourceTree = "<group>";
+		};
+		48F2A692E0D44A6A9B281B80 /* Providers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		5A12E5F76EAD47A48B8DD130 /* Configuration */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0ED961252BFD3A8B009BF814 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E7D7BBB2E01F759000039D4 /* LaunchAtLogin in Frameworks */,
+				0E1CD6632D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement in Frameworks */,
+				0E1CD65B2D21F83E005A2B8C /* GoogleAPIClientForRESTCore in Frameworks */,
+				0ED9613C2BFD3AA9009BF814 /* Alamofire in Frameworks */,
+				0ED961412BFD3AB1009BF814 /* GoogleSignIn in Frameworks */,
+				0ED961432BFD3AB1009BF814 /* GoogleSignInSwift in Frameworks */,
+				0E1CD6612D21F83E005A2B8C /* GoogleAPIClientForREST_APIGateway in Frameworks */,
+				0E1CD65D2D21F83E005A2B8C /* GoogleAPIClientForREST_ACMEDNS in Frameworks */,
+				0E1CD65F2D21F83E005A2B8C /* GoogleAPIClientForREST_AIPlatformNotebooks in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2D89F6131BEC30262B218D72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9EDC2F9110A6325DE6356C0 /* Cocoa.framework in Frameworks */,
+				C81C18120177293506B638BB /* XCTest.framework in Frameworks */,
+				BC19AF14507B6AEF99109F1D /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0ED9611F2BFD3A8B009BF814 = {
+			isa = PBXGroup;
+			children = (
+				0E490E6D2E260A4000E5CFB1 /* Menu Bar ThermostatDebug.entitlements */,
+				0ED9612A2BFD3A8B009BF814 /* Menu Bar Thermostat */,
+				0ED961292BFD3A8B009BF814 /* Products */,
+				0E36E06A2EC8004F00F858B8 /* AppIcon.icon */,
+				E7CD6825325413806B3F8437 /* Frameworks */,
+				C55EC639DFB4B82B369F203A /* Menu Bar ThermostatTests */,
+				2C8ACC3569C6B1405CD2E76E /* Models.swift */,
+				52BDB9081037BDEE06A1CD22 /* PollManager.swift */,
+				D9ACAB32771A752939FA3F39 /* Logging+Redaction.swift */,
+				0ED84D9328F3B714B089A6A9 /* KeychainManager.swift */,
+				B3A1003AA919A6837C334CA2 /* AppStateCore.swift */,
+				B41A288A8E86A89748532504 /* AppState+Authentication.swift */,
+				2F89A0112F89A0112F89A011 /* AppState+ComputedState.swift */,
+				2F89A0122F89A0122F89A012 /* AppState+SessionLifecycle.swift */,
+				2F89A0132F89A0132F89A013 /* AppState+Freshness.swift */,
+				2F89A0142F89A0142F89A014 /* AppState+DevicePolling.swift */,
+				2F89A0152F89A0152F89A015 /* AppState+RetryScheduling.swift */,
+				C94E7DC06B4C9CDF13C95C74 /* GoogleSDMDeviceAPI.swift */,
+				2F88A0112F88A0112F88A011 /* GoogleSDMDeviceLoading.swift */,
+				2F88A0122F88A0122F88A012 /* GoogleSDMDeviceCommands.swift */,
+				2F88A0132F88A0132F88A013 /* GoogleSDMDeviceAccessFailure.swift */,
+				55F6A77FA5E2DCA5EB267DED /* GoogleSDMPubSub.swift */,
+				2F87A0112F87A0112F87A011 /* GoogleSDMPubSubModels.swift */,
+				2F87A0122F87A0122F87A012 /* GoogleSDMPubSubPolling.swift */,
+				2F87A0132F87A0132F87A013 /* GoogleSDMPubSubEventMerge.swift */,
+				2F87A0142F87A0142F87A014 /* GoogleSDMPubSubSubscription.swift */,
+				CFB18F16B839143503A0B2C9 /* WorkloadIdentityTokenProvider+Stub.swift */,
+				B08626D45A75FACBBDD484F7 /* MenuBarStatusItemController+Stub.swift */,
+			);
+			sourceTree = "<group>";
+		};
+		0ED961292BFD3A8B009BF814 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0ED961282BFD3A8B009BF814 /* Menu Bar Thermostat.app */,
+				70273C1B480A064D9ADF7957 /* Menu Bar ThermostatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0ED9612A2BFD3A8B009BF814 /* Menu Bar Thermostat */ = {
+			isa = PBXGroup;
+			children = (
+				0E13FE2E2E93568C00E0C965 /* AppState */,
+				5A12E5F76EAD47A48B8DD130 /* Configuration */,
+				0E13FE272E93568500E0C965 /* Models */,
+				48F2A692E0D44A6A9B281B80 /* Providers */,
+				0E13FE1D2E93567500E0C965 /* Views */,
+				0E7B7F622E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift */,
+				0EF4D00F2FA1CDEF00AAA001 /* Logging+Redaction.swift */,
+				0E84F60B2DF8E3F9007C643D /* KeychainManager.swift */,
+				0E13FE122E93563C00E0C965 /* MenuBarStatusItem.swift */,
+				0E84F6092DF8DC2A007C643D /* PollManager.swift */,
+				0ED961442BFD3C27009BF814 /* Menu-Bar-Thermostat-Info.plist */,
+				0ED9612B2BFD3A8B009BF814 /* MenuBarThermostatApp.swift */,
+				0ED9612F2BFD3A8C009BF814 /* Assets.xcassets */,
+				0ED961342BFD3A8C009BF814 /* Menu Bar Thermostat.entitlements */,
+				0ED961312BFD3A8C009BF814 /* Preview Content */,
+			);
+			path = "Menu Bar Thermostat";
+			sourceTree = "<group>";
+		};
+		0ED961312BFD3A8C009BF814 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0ED961322BFD3A8C009BF814 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B06DA73B1D97A67E93D90D11 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				EDC58E7A00C5B300E7B8128E /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		C55EC639DFB4B82B369F203A /* Menu Bar ThermostatTests */ = {
+			isa = PBXGroup;
+			children = (
+				2F9500112F9500112F950011 /* AppConfigTests.swift */,
+				C781F656F6082BB1C9B3DC69 /* AppStateConnectionHealthTests.swift */,
+				39C6040E005514F6738A6C3D /* GoogleSDMDeviceCommandTests.swift */,
+				2F9500122F9500122F950012 /* GoogleSDMDeviceLoadingTests.swift */,
+				6FA525AD0C4D2ACB5BDFF986 /* GoogleSDMPubSubMergeTests.swift */,
+				2F9500132F9500132F950013 /* SetpointSliderLogicTests.swift */,
+				2F9500142F9500142F950014 /* TemperatureUnitTests.swift */,
+				2F9500152F9500152F950015 /* ThermostatSnapshotMappingTests.swift */,
+				CE99E0A1FE1E8A846B854641 /* MockURLProtocol.swift */,
+				5D10AF798BA54DACE4ADE884 /* TestFixtures.swift */,
+				EB9211FD3B57D83A353C266B /* WorkloadIdentityTokenProvider+Stub.swift */,
+				982467D58143E6F7DE15CA41 /* MenuBarStatusItemController+Stub.swift */,
+			);
+			name = "Menu Bar ThermostatTests";
+			path = "Menu Bar ThermostatTests";
+			sourceTree = "<group>";
+		};
+		E7CD6825325413806B3F8437 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B06DA73B1D97A67E93D90D11 /* OS X */,
+				B3C05295AEEE50479AAE5509 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0ED961272BFD3A8B009BF814 /* Menu Bar Thermostat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0ED961372BFD3A8C009BF814 /* Build configuration list for PBXNativeTarget "Menu Bar Thermostat" */;
+			buildPhases = (
+				0ED961242BFD3A8B009BF814 /* Sources */,
+				0ED961252BFD3A8B009BF814 /* Frameworks */,
+				0ED961262BFD3A8B009BF814 /* Resources */,
+				0ED961462BFD3E11009BF814 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0E13FE1D2E93567500E0C965 /* Views */,
+				0E13FE272E93568500E0C965 /* Models */,
+				0E13FE2E2E93568C00E0C965 /* AppState */,
+				48F2A692E0D44A6A9B281B80 /* Providers */,
+				5A12E5F76EAD47A48B8DD130 /* Configuration */,
+			);
+			name = "Menu Bar Thermostat";
+			packageProductDependencies = (
+				0ED9613B2BFD3AA9009BF814 /* Alamofire */,
+				0ED961402BFD3AB1009BF814 /* GoogleSignIn */,
+				0ED961422BFD3AB1009BF814 /* GoogleSignInSwift */,
+				0E1CD65A2D21F83E005A2B8C /* GoogleAPIClientForRESTCore */,
+				0E1CD65C2D21F83E005A2B8C /* GoogleAPIClientForREST_ACMEDNS */,
+				0E1CD65E2D21F83E005A2B8C /* GoogleAPIClientForREST_AIPlatformNotebooks */,
+				0E1CD6602D21F83E005A2B8C /* GoogleAPIClientForREST_APIGateway */,
+				0E1CD6622D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement */,
+				0E7D7BBA2E01F759000039D4 /* LaunchAtLogin */,
+			);
+			productName = "Menu Bar Thermostat";
+			productReference = 0ED961282BFD3A8B009BF814 /* Menu Bar Thermostat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2A17E5CECC8877DFAD39A637 /* Menu Bar ThermostatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 272EE77A45244707AF79C46A /* Build configuration list for PBXNativeTarget "Menu Bar ThermostatTests" */;
+			buildPhases = (
+				830920053B167251F762A40F /* Sources */,
+				2D89F6131BEC30262B218D72 /* Frameworks */,
+				322274E44371720C98B07FF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Menu Bar ThermostatTests";
+			packageProductDependencies = (
+				0ED9613B2BFD3AA9009BF814 /* Alamofire */,
+			);
+			productName = "Menu Bar ThermostatTests";
+			productReference = 70273C1B480A064D9ADF7957 /* Menu Bar ThermostatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0ED961202BFD3A8B009BF814 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					0ED961272BFD3A8B009BF814 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 0ED961232BFD3A8B009BF814 /* Build configuration list for PBXProject "Menu Bar Thermostat" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0ED9611F2BFD3A8B009BF814;
+			packageReferences = (
+				0ED9613A2BFD3AA9009BF814 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0ED9613F2BFD3AB1009BF814 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */,
+				0E7D7BB92E01F759000039D4 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+			);
+			productRefGroup = 0ED961292BFD3A8B009BF814 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0ED961272BFD3A8B009BF814 /* Menu Bar Thermostat */,
+				2A17E5CECC8877DFAD39A637 /* Menu Bar ThermostatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0ED961262BFD3A8B009BF814 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ED961332BFD3A8C009BF814 /* Preview Assets.xcassets in Resources */,
+				0ED961302BFD3A8C009BF814 /* Assets.xcassets in Resources */,
+				0E36E06B2EC8005000F858B8 /* AppIcon.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		322274E44371720C98B07FF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0ED961242BFD3A8B009BF814 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E13FE132E93563C00E0C965 /* MenuBarStatusItem.swift in Sources */,
+				0EF4D0102FA1CDEF00AAA001 /* Logging+Redaction.swift in Sources */,
+				0E84F60C2DF8E3F9007C643D /* KeychainManager.swift in Sources */,
+				0ED9612C2BFD3A8B009BF814 /* MenuBarThermostatApp.swift in Sources */,
+				0E7B7F632E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		830920053B167251F762A40F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F9500012F9500012F950001 /* AppConfigTests.swift in Sources */,
+				6F7730554FEF37C36D8EE521 /* AppStateConnectionHealthTests.swift in Sources */,
+				77E6713F6CC062F36EBC9478 /* GoogleSDMDeviceCommandTests.swift in Sources */,
+				2F9500022F9500022F950002 /* GoogleSDMDeviceLoadingTests.swift in Sources */,
+				1305C984CD4FF01D088CF948 /* GoogleSDMPubSubMergeTests.swift in Sources */,
+				2F9500032F9500032F950003 /* SetpointSliderLogicTests.swift in Sources */,
+				2F9500042F9500042F950004 /* TemperatureUnitTests.swift in Sources */,
+				2F9500052F9500052F950005 /* ThermostatSnapshotMappingTests.swift in Sources */,
+				3BDB352AE555DFE52528D686 /* MockURLProtocol.swift in Sources */,
+				8B0286470E85D874A58B64EF /* TestFixtures.swift in Sources */,
+				32DECF887918901F0C6134A3 /* Models.swift in Sources */,
+				E274BA1EC6BA43F5A03378B2 /* Thermostat.swift in Sources */,
+				48F2A691E0D44A6A9B281B80 /* GoogleSDMModels.swift in Sources */,
+				5A12E5F66EAD47A48B8DD130 /* AppConfig.swift in Sources */,
+				DE7C1D08998602E324205CFE /* PollManager.swift in Sources */,
+				C039EA185FEBA4D3562CE2B1 /* Logging+Redaction.swift in Sources */,
+				677E4F4A551B933C2684CDBF /* KeychainManager.swift in Sources */,
+				7541C568FF5B6FFCFF096190 /* AppStateCore.swift in Sources */,
+				1DE64CB06904F9F3CA9FAFDF /* AppState+Authentication.swift in Sources */,
+				2F89A0012F89A0012F89A001 /* AppState+ComputedState.swift in Sources */,
+				2F89A0022F89A0022F89A002 /* AppState+SessionLifecycle.swift in Sources */,
+				2F89A0032F89A0032F89A003 /* AppState+Freshness.swift in Sources */,
+				2F89A0042F89A0042F89A004 /* AppState+DevicePolling.swift in Sources */,
+				2F89A0052F89A0052F89A005 /* AppState+RetryScheduling.swift in Sources */,
+				F457DE5EC5B7239C04C48D04 /* GoogleSDMDeviceAPI.swift in Sources */,
+				2F88A0012F88A0012F88A001 /* GoogleSDMDeviceLoading.swift in Sources */,
+				2F88A0022F88A0022F88A002 /* GoogleSDMDeviceCommands.swift in Sources */,
+				2F88A0032F88A0032F88A003 /* GoogleSDMDeviceAccessFailure.swift in Sources */,
+				2F76CF6584D49C8D8A48B5E9 /* GoogleSDMPubSub.swift in Sources */,
+				2F87A0012F87A0012F87A001 /* GoogleSDMPubSubModels.swift in Sources */,
+				2F87A0022F87A0022F87A002 /* GoogleSDMPubSubPolling.swift in Sources */,
+				2F87A0032F87A0032F87A003 /* GoogleSDMPubSubEventMerge.swift in Sources */,
+				2F87A0042F87A0042F87A004 /* GoogleSDMPubSubSubscription.swift in Sources */,
+				C6CEBBDE926FF8ECE93958F7 /* WorkloadIdentityTokenProvider+Stub.swift in Sources */,
+				3B7F16EA8571FE3AC5499A90 /* MenuBarStatusItemController+Stub.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0ED961352BFD3A8C009BF814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0ED961362BFD3A8C009BF814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		0ED961382BFD3A8C009BF814 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A12E5F86EAD47A48B8DD130 /* BuildSettings.xcconfig */;
+			buildSettings = {
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "Menu Bar Thermostat/Resources/Menu Bar ThermostatDebug.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Menu Bar Thermostat/Preview Content\"";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Menu Bar Thermostat/Resources/Menu-Bar-Thermostat-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Menu Bar Thermostat";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarThermostat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0ED961392BFD3A8C009BF814 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A12E5F86EAD47A48B8DD130 /* BuildSettings.xcconfig */;
+			buildSettings = {
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=*]" = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "Menu Bar Thermostat/Resources/Menu Bar Thermostat.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Menu Bar Thermostat/Preview Content\"";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Menu Bar Thermostat/Resources/Menu-Bar-Thermostat-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Menu Bar Thermostat";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarThermostat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		37ECF63679BE8FFF583B7989 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+					"@loader_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarThermostatTests;
+				PRODUCT_MODULE_NAME = MenuBar_ThermostatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7CF4A8727666450A4714931D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+					"@loader_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.MenuBarThermostatTests;
+				PRODUCT_MODULE_NAME = MenuBar_ThermostatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ENABLE_EXPLICIT_MODULES = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0ED961232BFD3A8B009BF814 /* Build configuration list for PBXProject "Menu Bar Thermostat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0ED961352BFD3A8C009BF814 /* Debug */,
+				0ED961362BFD3A8C009BF814 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0ED961372BFD3A8C009BF814 /* Build configuration list for PBXNativeTarget "Menu Bar Thermostat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0ED961382BFD3A8C009BF814 /* Debug */,
+				0ED961392BFD3A8C009BF814 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		272EE77A45244707AF79C46A /* Build configuration list for PBXNativeTarget "Menu Bar ThermostatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37ECF63679BE8FFF583B7989 /* Release */,
+				7CF4A8727666450A4714931D /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/google-api-objectivec-client-for-rest.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		0E7D7BB92E01F759000039D4 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		0ED9613A2BFD3AA9009BF814 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		0ED9613F2BFD3AB1009BF814 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0E1CD65A2D21F83E005A2B8C /* GoogleAPIClientForRESTCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForRESTCore;
+		};
+		0E1CD65C2D21F83E005A2B8C /* GoogleAPIClientForREST_ACMEDNS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_ACMEDNS;
+		};
+		0E1CD65E2D21F83E005A2B8C /* GoogleAPIClientForREST_AIPlatformNotebooks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_AIPlatformNotebooks;
+		};
+		0E1CD6602D21F83E005A2B8C /* GoogleAPIClientForREST_APIGateway */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_APIGateway;
+		};
+		0E1CD6622D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E1CD6592D21F7DE005A2B8C /* XCRemoteSwiftPackageReference "google-api-objectivec-client-for-rest" */;
+			productName = GoogleAPIClientForREST_APIManagement;
+		};
+		0E7D7BBA2E01F759000039D4 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E7D7BB92E01F759000039D4 /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+		0ED9613B2BFD3AA9009BF814 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0ED9613A2BFD3AA9009BF814 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		0ED961402BFD3AB1009BF814 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0ED9613F2BFD3AB1009BF814 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		0ED961422BFD3AB1009BF814 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0ED9613F2BFD3AB1009BF814 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0ED961202BFD3A8B009BF814 /* Project object */;
+}
