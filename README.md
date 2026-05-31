@@ -4,6 +4,8 @@ An unofficial macOS menu bar thermostat controller for Google Nest devices using
 
 Menu Bar Thermostat runs locally on your Mac, stores Google OAuth tokens in the macOS Keychain, and does not require a separate backend server. Under Google's current Device Access rules, each user needs their own Device Access project unless Google approves a commercial integration.
 
+![Menu Bar Thermostat popover showing thermostat controls](Docs/screenshots/menu-bar-thermostat-popover.png)
+
 ## Developer Repository
 
 This repository is intended for developers who can configure their own Google Cloud, OAuth, Device Access, Pub/Sub, and Workload Identity setup. It will not build into a working app as-is after cloning because the required Google service configuration is intentionally omitted from the public repo.
