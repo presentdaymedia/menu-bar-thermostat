@@ -14,6 +14,8 @@ This repository is intended for developers who can configure their own Google Cl
 
 This project is source-available for local builds and early public review. It is not affiliated with, endorsed by, or sponsored by Google, Nest, or Alphabet.
 
+This repository is shared as a developer reference. Issues and pull requests are welcome, but active maintenance is not guaranteed.
+
 Before publishing a signed release, verify that local Google project configuration is not bundled into the app artifact.
 
 ## Requirements
