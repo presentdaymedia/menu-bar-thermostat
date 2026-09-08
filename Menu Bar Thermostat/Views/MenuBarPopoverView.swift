@@ -10,6 +10,17 @@ struct MenuBarPopoverView: View {
     var body: some View {
         VStack(spacing: 0) {
             header
+            if let message = appState.authenticationStatus.message {
+                Text(message)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                if appState.authenticationStatus.isRecovering {
+                    Button("Retry Connection Now") { appState.retryAuthenticationNow() }
+                        .disabled(appState.isRefreshingToken)
+                }
+            }
             content
         }
     }
@@ -50,7 +61,12 @@ struct MenuBarPopoverView: View {
             AppTitleView()
                 .padding(.bottom)
                 .padding(.top, 8)
-            GoogleSignInView()
+            if !appState.authenticationStatus.isRecovering || appState.authenticationStatus == .retrying {
+                GoogleSignInView()
+            }
+            Button("Show Connection Log") {
+                NSWorkspace.shared.selectFile(AuthenticationDiagnostics.logURL.path, inFileViewerRootedAtPath: "")
+            }
             Button("Quit App") {
                 NSApplication.shared.terminate(nil)
             }

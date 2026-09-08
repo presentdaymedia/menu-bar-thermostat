@@ -3,6 +3,7 @@ import Foundation
 enum PubSubError: Error {
     case subscriptionNotExists
     case authenticationFailure
+    case permissionDenied
     case invalidResponse
     case networkError(Error)
     case decodingError(Error)
@@ -13,6 +14,8 @@ enum PubSubError: Error {
             return "Pub/Sub subscription does not exist"
         case .authenticationFailure:
             return "Authentication failure for Pub/Sub"
+        case .permissionDenied:
+            return "Pub/Sub permission denied; check service-account IAM permissions"
         case .invalidResponse:
             return "Invalid response from Pub/Sub"
         case .networkError(let error):

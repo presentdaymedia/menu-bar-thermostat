@@ -9,6 +9,53 @@ private enum AuthStorageKeys {
     static let sdmAccessTokenExpiration = "sdmAccessTokenExpirationDate"
 }
 
+enum AuthenticationStatus {
+    case signedOut, restoring, connected, retrying, reauthenticationRequired, configurationError
+
+    var message: String? {
+        switch self {
+        case .restoring: return "Restoring your Google connection…"
+        case .retrying: return "Reconnecting to Google automatically. Your saved sign-in is being kept."
+        case .reauthenticationRequired: return "Google authorization expired or was revoked. Please sign in again."
+        case .configurationError: return "Google Sign-In configuration needs attention. See the connection log."
+        default: return nil
+        }
+    }
+
+    var isRecovering: Bool { self == .restoring || self == .retrying }
+}
+
+struct GoogleSessionTokens {
+    let accessToken: String
+    let idToken: String?
+    let expiration: Date?
+}
+
+enum GoogleSessionError: Error {
+    case missingCredentials, configuration
+
+    enum Disposition { case revoked, missingCredentials, configuration, transient }
+
+    static func disposition(of error: Error) -> Disposition {
+        if let local = error as? GoogleSessionError {
+            return local == .configuration ? .configuration : .missingCredentials
+        }
+        var current = error as NSError
+        for _ in 0..<6 {
+            if current.domain == "org.openid.appauth.oauth_token" {
+                let response = current.userInfo["OIDOAuthErrorResponseErrorKey"] as? [String: Any]
+                if current.code == -10 || response?["error"] as? String == "invalid_grant" { return .revoked }
+                if let reason = response?["error"] as? String,
+                   ["invalid_client", "unauthorized_client", "invalid_scope"].contains(reason) { return .configuration }
+            }
+            if current.domain == "com.google.GIDSignIn", current.code == -4 { return .missingCredentials }
+            guard let underlying = current.userInfo[NSUnderlyingErrorKey] as? NSError else { break }
+            current = underlying
+        }
+        return .transient
+    }
+}
+
 extension AppState {
     func configureGoogleSignInIfNeeded() {
 #if canImport(GoogleSignIn)
@@ -30,109 +77,169 @@ extension AppState {
 #endif
     }
 
+    /// All startup, wake, API and WIF requests share one refresh operation and retry timer.
     func refreshTokenIfNeeded(force: Bool = false) {
-#if canImport(GoogleSignIn)
-        if isRefreshingToken {
-            print("refreshTokenIfNeeded: Refresh already in progress – skipping request")
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in self?.refreshTokenIfNeeded(force: force) }
             return
         }
-
-        let lastRefreshTime = UserDefaults.standard.double(forKey: "lastSDMTokenRefreshTime")
-        let currentTime = Date().timeIntervalSince1970
-        guard force || currentTime - lastRefreshTime > 300.0 else { return }
-
+        guard !isRefreshingToken else { return }
+        guard authenticationStatus != .reauthenticationRequired,
+              authenticationStatus != .configurationError else { return }
+        guard authenticationStatus != .signedOut || !sdmAccessToken.isEmpty else { return }
+        let now = Date()
+        // Automatic callers must not bypass a transient-failure backoff, even on HTTP 401.
+        if authenticationStatus == .retrying, let nextAuthenticationAttempt, nextAuthenticationAttempt > now { return }
+        if force, let lastAuthenticationAttempt, now.timeIntervalSince(lastAuthenticationAttempt) < 5 {
+            scheduleAuthenticationAttempt(after: 5 - now.timeIntervalSince(lastAuthenticationAttempt))
+            return
+        }
+        tokenRefreshTimer?.invalidate()
+        tokenRefreshTimer = nil
+        nextAuthenticationAttempt = nil
         isRefreshingToken = true
-        print("Attempting to refresh authentication token…")
-        configureGoogleSignInIfNeeded()
-
-        GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
+        lastAuthenticationAttempt = now
+        let attempt = UUID()
+        authenticationAttemptID = attempt
+        AuthenticationDiagnostics.record("google_refresh_started")
+        let completion: (Result<GoogleSessionTokens, Error>) -> Void = { [weak self] result in
             DispatchQueue.main.async {
-                guard let self = self else { return }
-                defer {
-                    self.isRefreshingToken = false
-                    UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "lastSDMTokenRefreshTime")
-                }
-
-                if let error = error {
-                    print("Error restoring sign-in: \(error.localizedDescription)")
-                    self.clearStoredAuthentication()
-                    return
-                }
-
-                guard let user = user else {
-                    print("No previous user session found while refreshing token")
-                    self.clearStoredAuthentication()
-                    return
-                }
-
-                let newSDMAccessToken = user.accessToken.tokenString
-                self.storeSDMAccessTokenExpiration(user.accessToken.expirationDate)
-                let idToken = user.idToken?.tokenString ?? ""
-
-                if self.sdmAccessToken != newSDMAccessToken {
-                    print("OAuth token refreshed (first 10 chars): \(newSDMAccessToken.prefix(10))…")
-                    self.beginAuthenticatedSession(
-                        sdmAccessToken: newSDMAccessToken,
-                        idToken: idToken,
-                        expiration: user.accessToken.expirationDate
-                    )
-                } else {
-                    print("OAuth token unchanged after refresh")
-                    self.scheduleAutoRefresh()
-                }
-
-                if force || !(self.workloadIdentityProvider?.isTokenValid ?? false) {
-                    if idToken.isEmpty {
-                        print("refreshTokenIfNeeded: Cannot start Workload Identity – missing ID token")
-                    } else {
-                        print("refreshTokenIfNeeded: Starting Workload Identity exchange (forced: \(force), tokenValid: \(self.workloadIdentityProvider?.isTokenValid ?? false))")
-                        self.workloadIdentityProvider?.start(idToken: idToken)
+                guard let self, self.authenticationAttemptID == attempt else { return }
+                self.isRefreshingToken = false
+                self.isRestoringSession = false
+                switch result {
+                case .success(let tokens):
+                    guard !tokens.accessToken.isEmpty else {
+                        self.handleAuthenticationFailure(GoogleSessionError.missingCredentials)
+                        return
                     }
+                    self.authenticationStatus = .connected
+                    self.authenticationRetryDelay = 5
+                    self.hasRestorableGoogleSession = true
+                    if !self.isTestMode {
+                        UserDefaults.standard.set(true, forKey: "hasAuthorizedGoogleSession")
+                    }
+                    AuthenticationDiagnostics.record("google_refresh_succeeded")
+                    if self.userInfo == nil || self.selectedDevice == nil {
+                        self.hasStartedSessionBootstrap = false
+                    }
+                    self.beginAuthenticatedSession(sdmAccessToken: tokens.accessToken,
+                                                   idToken: tokens.idToken,
+                                                   expiration: tokens.expiration)
+                    if !self.isTestMode {
+                        self.startSessionBootstrapIfNeeded()
+                        self.scheduleDevicePolling()
+                    }
+                case .failure(let error):
+                    self.handleAuthenticationFailure(error)
                 }
             }
         }
+        if let authenticationRequest {
+            authenticationRequest(completion)
+            return
+        }
+#if canImport(GoogleSignIn)
+        configureGoogleSignInIfNeeded()
+        guard GIDSignIn.sharedInstance.configuration != nil else {
+            completion(.failure(GoogleSessionError.configuration))
+            return
+        }
+        let receive: (GIDGoogleUser?, Error?) -> Void = { user, error in
+            if let error { completion(.failure(error)) }
+            else if let user {
+                completion(.success(GoogleSessionTokens(accessToken: user.accessToken.tokenString,
+                                                       idToken: user.idToken?.tokenString,
+                                                       expiration: user.accessToken.expirationDate)))
+            } else { completion(.failure(GoogleSessionError.missingCredentials)) }
+        }
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            // Preserve the original refresh error, especially invalid_grant. Restore's fallback
+            // can otherwise replace it with a less informative Keychain error.
+            user.refreshTokensIfNeeded(completion: receive)
+        } else {
+            GIDSignIn.sharedInstance.restorePreviousSignIn(completion: receive)
+        }
 #else
-        print("refreshTokenIfNeeded: GoogleSignIn is unavailable in this build.")
+        // Test targets inject the request above and never access Google or the user's Keychain.
+        isRefreshingToken = false
 #endif
+    }
+
+    func handleAuthenticationFailure(_ error: Error) {
+        AuthenticationDiagnostics.record("google_refresh_failed", error: error)
+        switch GoogleSessionError.disposition(of: error) {
+        case .revoked:
+            if !isTestMode { UserDefaults.standard.set(true, forKey: "googleReauthenticationRequired") }
+            clearStoredAuthentication()
+            authenticationStatus = .reauthenticationRequired
+        case .configuration:
+            authenticationStatus = .configurationError
+            tokenRefreshTimer?.invalidate()
+            tokenRefreshTimer = nil
+        case .missingCredentials where !hasRestorableGoogleSession && sdmAccessToken.isEmpty:
+            authenticationStatus = .signedOut
+        default:
+            // A failed Keychain read is not proof that the saved Google grant was revoked.
+            authenticationStatus = .retrying
+            stopDevicePolling()
+            stopPubSubPolling(shouldRestartPolling: false)
+            let delay = authenticationRetryDelay
+            authenticationRetryDelay = min(delay * 2, 60)
+            scheduleAuthenticationAttempt(after: delay)
+        }
+    }
+
+    static func authenticationRefreshDelay(expiration: Date?, now: Date = Date()) -> TimeInterval {
+        // GoogleSignIn 7.1 refreshes current-user tokens inside a 60-second window.
+        // Use 45 seconds, and reschedule from the returned expiry even when unchanged.
+        max(1, (expiration?.timeIntervalSince(now) ?? 60) - 45)
     }
 
     func scheduleAutoRefresh() {
-#if canImport(GoogleSignIn)
+        guard authenticationStatus == .connected else { return }
+        scheduleAuthenticationAttempt(after: Self.authenticationRefreshDelay(expiration: storedSDMAccessTokenExpiration))
+    }
+
+    func scheduleAuthenticationAttempt(after delay: TimeInterval) {
+        tokenRefreshTimer?.invalidate()
+        nextAuthenticationAttempt = Date().addingTimeInterval(delay)
+        let timer = Timer(timeInterval: delay, repeats: false) { [weak self] _ in
+            guard let self else { return }
+            self.nextAuthenticationAttempt = nil
+            self.refreshTokenIfNeeded()
+        }
+        tokenRefreshTimer = timer
+        RunLoop.main.add(timer, forMode: .common)
+        AuthenticationDiagnostics.record("google_refresh_scheduled delay_seconds=\(Int(ceil(delay)))")
+    }
+
+    func cancelAuthenticationRecovery() {
+        authenticationAttemptID = UUID()
+        isRefreshingToken = false
         tokenRefreshTimer?.invalidate()
         tokenRefreshTimer = nil
+        nextAuthenticationAttempt = nil
+        lastAuthenticationAttempt = nil
+        authenticationRetryDelay = 5
+    }
 
-        let expiration = GIDSignIn.sharedInstance.currentUser?.accessToken.expirationDate ?? storedSDMAccessTokenExpiration
-
-        guard let expiration else {
-            print("scheduleAutoRefresh: No access-token expiration date – not scheduling.")
-            return
-        }
-
-        let timeUntilExpiration = expiration.timeIntervalSinceNow
-        if timeUntilExpiration <= 0 {
-            print("scheduleAutoRefresh: Access token already expired – refreshing immediately.")
-            refreshTokenIfNeeded(force: true)
-            return
-        }
-
-        let interval = timeUntilExpiration - 300
-        let delay = max(30, interval)
-
-        tokenRefreshTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
-            print("Auto-refreshing OAuth token (scheduled)")
-            self?.refreshTokenIfNeeded()
-            self?.scheduleAutoRefresh()
-        }
-
-        print("Scheduled token auto-refresh in \(Int(delay)) seconds (token expires at \(expiration))")
-#else
-        tokenRefreshTimer?.invalidate()
-        tokenRefreshTimer = nil
-        print("scheduleAutoRefresh: GoogleSignIn unavailable; auto-refresh disabled.")
-#endif
+    func retryAuthenticationNow() {
+        guard !isRefreshingToken else { return }
+        cancelAuthenticationRecovery()
+        authenticationStatus = .restoring
+        refreshTokenIfNeeded(force: true)
     }
 
     func signOut() {
+        cancelAuthenticationRecovery()
+        authenticationStatus = .signedOut
+        hasRestorableGoogleSession = false
+        if !isTestMode {
+            UserDefaults.standard.removeObject(forKey: "hasAuthorizedGoogleSession")
+            UserDefaults.standard.removeObject(forKey: "googleReauthenticationRequired")
+        }
+        AuthenticationDiagnostics.record("user_signed_out")
         stopDevicePolling()
         stopPubSubPolling(shouldRestartPolling: false)
         cancelPubSubSetup()
@@ -167,14 +274,22 @@ extension AppState {
     }
 
     func beginAuthenticatedSession(sdmAccessToken: String, idToken: String?, expiration: Date?) {
+        authenticationStatus = .connected
+        hasRestorableGoogleSession = true
+        if !isTestMode {
+            UserDefaults.standard.set(true, forKey: "hasAuthorizedGoogleSession")
+            UserDefaults.standard.removeObject(forKey: "googleReauthenticationRequired")
+        }
         storeSDMAccessTokenExpiration(expiration)
         let tokenChanged = self.sdmAccessToken != sdmAccessToken
         self.sdmAccessToken = sdmAccessToken
 
         if !tokenChanged {
             scheduleAutoRefresh()
-            startSessionBootstrapIfNeeded()
+            if !isTestMode { startSessionBootstrapIfNeeded() }
         }
+        // testMode suppresses the token observer's side effects, but exercises real scheduling.
+        if isTestMode { scheduleAutoRefresh() }
 
         if let idToken, !idToken.isEmpty {
             workloadIdentityProvider?.start(idToken: idToken)
@@ -186,8 +301,9 @@ extension AppState {
     }
 
     func clearStoredAuthentication() {
+        cancelAuthenticationRecovery()
         isRestoringSession = false
-        KeychainManager.delete(for: "sdmAccessToken")
+        if !isTestMode { KeychainManager.delete(for: "sdmAccessToken") }
         storeSDMAccessTokenExpiration(nil)
         if sdmAccessToken.isEmpty {
             resetAuthenticatedSessionState()
@@ -205,6 +321,9 @@ extension AppState {
             return
         }
 
+        provider.requestGoogleTokenRefresh = { [weak self] in
+            self?.refreshTokenIfNeeded(force: true)
+        }
         workloadIdentityTokenSubscription = provider.$serviceAccountAccessToken
             .dropFirst()
             .receive(on: DispatchQueue.main)
@@ -218,18 +337,18 @@ extension AppState {
     }
 
     func setupNotificationObservers() {
-        notificationObservers.forEach { NotificationCenter.default.removeObserver($0) }
+        notificationObservers.forEach { NSWorkspace.shared.notificationCenter.removeObserver($0) }
         notificationObservers.removeAll()
 
         let center = NSWorkspace.shared.notificationCenter
 
         let willSleep = center.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { [weak self] _ in
-            print("AppState: System will sleep – stopping Pub/Sub polling")
+            AuthenticationDiagnostics.record("system_will_sleep")
             self?.stopPubSubPolling(shouldRestartPolling: false)
         }
 
         let didWake = center.addObserver(forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { [weak self] _ in
-            print("AppState: System woke from sleep – reconnecting")
+            AuthenticationDiagnostics.record("system_did_wake")
             self?.reconnectAfterWake()
         }
 
@@ -243,12 +362,14 @@ extension AppState {
     }
 
     private var storedSDMAccessTokenExpiration: Date? {
+        if isTestMode { return testTokenExpiration }
         let timestamp = UserDefaults.standard.double(forKey: AuthStorageKeys.sdmAccessTokenExpiration)
         guard timestamp > 0 else { return nil }
         return Date(timeIntervalSince1970: timestamp)
     }
 
     func storeSDMAccessTokenExpiration(_ date: Date?) {
+        if isTestMode { testTokenExpiration = date; return }
         if let date {
             UserDefaults.standard.set(date.timeIntervalSince1970, forKey: AuthStorageKeys.sdmAccessTokenExpiration)
         } else {

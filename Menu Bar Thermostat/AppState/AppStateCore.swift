@@ -134,6 +134,14 @@ class AppState: ObservableObject {
     var devicePollingTimer: Timer?
     var tokenRefreshTimer: Timer?
     var isRefreshingToken: Bool = false
+    @Published var authenticationStatus: AuthenticationStatus = .signedOut
+    var authenticationRequest: ((@escaping (Result<GoogleSessionTokens, Error>) -> Void) -> Void)?
+    var authenticationAttemptID = UUID()
+    var authenticationRetryDelay: TimeInterval = 5
+    var nextAuthenticationAttempt: Date?
+    var lastAuthenticationAttempt: Date?
+    var hasRestorableGoogleSession = false
+    var testTokenExpiration: Date?
     var pollManager = PollManager()
     var httpSession: Session = AF
 
@@ -185,35 +193,19 @@ class AppState: ObservableObject {
             return
         }
 
-        configureGoogleSignInIfNeeded()
-#if canImport(GoogleSignIn)
         isRestoringSession = true
-#endif
+        authenticationStatus = .restoring
+        hasRestorableGoogleSession = UserDefaults.standard.bool(forKey: "hasAuthorizedGoogleSession")
         if let savedToken = KeychainManager.retrieve(for: "sdmAccessToken") {
             self.sdmAccessToken = savedToken
-            print("Keychain: Loaded existing access token (\(savedToken.prefix(10))…)")
+            hasRestorableGoogleSession = true
         }
-#if canImport(GoogleSignIn)
-        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-            DispatchQueue.main.async {
-                self.isRestoringSession = false
-                if let error = error {
-                    print("Error restoring previous sign-in: \(error.localizedDescription)")
-                    self.clearStoredAuthentication()
-                } else if let user = user {
-                    self.beginAuthenticatedSession(
-                        sdmAccessToken: user.accessToken.tokenString,
-                        idToken: user.idToken?.tokenString,
-                        expiration: user.accessToken.expirationDate
-                    )
-                    print("Restored previous sign-in, access token: \(redactedToken(self.sdmAccessToken))")
-                } else {
-                    print("No previous Google Sign-In session found during restore")
-                    self.clearStoredAuthentication()
-                }
-            }
+        if UserDefaults.standard.bool(forKey: "googleReauthenticationRequired") {
+            authenticationStatus = .reauthenticationRequired
+            isRestoringSession = false
         }
-#endif
+        AuthenticationDiagnostics.record("app_started")
+        refreshTokenIfNeeded(force: true)
         setupNotificationObservers()
     }
 

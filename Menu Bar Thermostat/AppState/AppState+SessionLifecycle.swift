@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 
 extension AppState {
     func resetAuthenticatedSessionState() {
@@ -37,6 +38,8 @@ extension AppState {
     }
 
     func cleanup() {
+        cancelAuthenticationRecovery()
+        notificationObservers.forEach { NSWorkspace.shared.notificationCenter.removeObserver($0) }
         stopDevicePolling()
         stopPubSubPolling(shouldRestartPolling: false)
         cancelPubSubSetup()
@@ -55,38 +58,10 @@ extension AppState {
     func reconnectAfterWake() {
         print("AppState: Reconnecting after wake from sleep")
 
-        guard !sdmAccessToken.isEmpty else {
-            print("AppState: Not signed in, skipping reconnection after wake")
-            return
-        }
-
-        // Force refresh tokens - this will trigger Workload Identity exchange which will call
-        // startPubSubSyncIfNeeded() via the Workload Identity token listener when complete
+        guard authenticationStatus != .signedOut,
+              authenticationStatus != .reauthenticationRequired else { return }
+        // Resume through the shared refresh completion, after credentials are ready.
         refreshTokenIfNeeded(force: true)
-        // Note: startPubSubSyncIfNeeded() is NOT called here because it would race with
-        // the async token refresh. The Workload Identity token listener handles this.
-
-        if let deviceID = selectedDevice?.id {
-            print("AppState: Fetching device state after wake")
-            loadDeviceSnapshot(deviceID: deviceID) { [weak self] updatedDevice in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    if let updatedDevice = updatedDevice {
-                        print("AppState: GoogleSDMThermostatDevice state refreshed after wake")
-                        self.selectedDevice = updatedDevice
-                        if let ambientTemperatureCelsius = updatedDevice.traits.temperature?.ambientTemperatureCelsius {
-                            self.currentTemperatureCelsius = ambientTemperatureCelsius
-                            self.updateDisplayedTemperature()
-                        }
-                        self.updateTemperatureUnitFromDevice()
-                    } else {
-                        print("AppState: GoogleSDMThermostatDevice fetch failed after wake")
-                    }
-                }
-            }
-        }
-
-        scheduleDevicePolling()
     }
 
     func startSessionBootstrapIfNeeded() {

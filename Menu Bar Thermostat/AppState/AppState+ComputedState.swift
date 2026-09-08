@@ -11,7 +11,9 @@ extension AppState {
     }
 
     var isDeviceInteractive: Bool {
-        guard !sdmAccessToken.isEmpty else { return false }
+        guard !sdmAccessToken.isEmpty, !authenticationStatus.isRecovering,
+              authenticationStatus != .reauthenticationRequired,
+              authenticationStatus != .configurationError else { return false }
         guard let selectedDevice else { return false }
         guard selectedDevice.traits.connectivity?.status != "OFFLINE" else { return false }
         if selectedDevice.traits.connectivity?.status == "ONLINE" {

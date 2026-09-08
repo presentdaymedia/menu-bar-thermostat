@@ -3,6 +3,7 @@ import Alamofire
 
 enum DeviceAccessRequestFailure {
     case authentication
+    case permissionDenied
     case rateLimited
     case rejectedCommand
     case explicitOffline
@@ -21,7 +22,11 @@ extension AppState {
         switch failure {
         case .authentication:
             print("\(context): Authentication error detected, refreshing token")
+            hasStartedSessionBootstrap = false
+            AuthenticationDiagnostics.record("sdm_authentication_failed http_status=\(statusCode ?? 0)")
             refreshTokenIfNeeded(force: true)
+        case .permissionDenied:
+            AuthenticationDiagnostics.record("sdm_permission_denied http_status=\(statusCode ?? 0)")
         case .rateLimited:
             print("\(context): Rate limit detected")
             handleRateLimitError()
@@ -39,7 +44,7 @@ extension AppState {
         switch failure {
         case .explicitOffline, .networkOrServerFailure:
             markConnectionUnhealthy()
-        case .authentication, .rateLimited, .rejectedCommand, .other:
+        case .authentication, .permissionDenied, .rateLimited, .rejectedCommand, .other:
             break
         }
 
@@ -50,10 +55,14 @@ extension AppState {
         let responseString = responseData.flatMap { String(data: $0, encoding: .utf8) } ?? ""
         let uppercasedResponse = responseString.uppercased()
 
-        if statusCode == 401 || statusCode == 403 ||
+        if statusCode == 401 ||
             uppercasedResponse.contains("UNAUTHENTICATED") ||
             uppercasedResponse.contains("AUTHENTICATION CREDENTIAL") {
             return .authentication
+        }
+
+        if statusCode == 403 || uppercasedResponse.contains("PERMISSION_DENIED") {
+            return .permissionDenied
         }
 
         if statusCode == 429 ||

@@ -69,6 +69,10 @@ struct SettingsPopoverView: View {
                 .controlSize(.mini)
                 .padding(.top)
 
+            Button("Show Connection Log") {
+                NSWorkspace.shared.selectFile(AuthenticationDiagnostics.logURL.path, inFileViewerRootedAtPath: "")
+            }
+
             Button("Quit App") {
                 NSApplication.shared.terminate(nil)
             }

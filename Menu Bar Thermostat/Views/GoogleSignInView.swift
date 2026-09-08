@@ -44,6 +44,7 @@ struct GoogleSignInView: View {
 
         NSApplication.shared.activate(ignoringOtherApps: true)
 
+        appState.cancelAuthenticationRecovery()
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingWindow, hint: nil, additionalScopes: [
             "openid",
             "https://www.googleapis.com/auth/userinfo.profile",
@@ -53,6 +54,7 @@ struct GoogleSignInView: View {
             if let error {
                 print("Error during Google Sign-In: \(error.localizedDescription)")
                 self.signInErrorMessage = "Sign-in failed: \(error.localizedDescription)"
+                if appState.hasRestorableGoogleSession { appState.retryAuthenticationNow() }
                 return
             }
             guard let user = signInResult?.user else {
@@ -71,13 +73,12 @@ struct GoogleSignInView: View {
                     self.showScopeWarning = false
                 }
 
-                let sdmAccessToken = user.accessToken.tokenString
-                appState.storeSDMAccessTokenExpiration(user.accessToken.expirationDate)
-                appState.sdmAccessToken = sdmAccessToken
-                appState.loadSignedInGoogleUser()
-                appState.scheduleAutoRefresh()
-                workloadIdentityProvider.start(idToken: user.idToken?.tokenString ?? "")
-                print("Google Sign-In successful, access token: \(redactedToken(sdmAccessToken))")
+                appState.cancelAuthenticationRecovery()
+                appState.isRestoringSession = false
+                appState.beginAuthenticatedSession(sdmAccessToken: user.accessToken.tokenString,
+                                                   idToken: user.idToken?.tokenString,
+                                                   expiration: user.accessToken.expirationDate)
+                AuthenticationDiagnostics.record("interactive_sign_in_succeeded")
             }
         }
     }

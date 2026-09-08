@@ -2,7 +2,7 @@ import Foundation
 
 extension AppState {
     func startPubSubSyncIfNeeded() {
-        guard !sdmAccessToken.isEmpty else {
+        guard !sdmAccessToken.isEmpty, !authenticationStatus.isRecovering else {
             print("Cannot initialize Pub/Sub: No access token")
             return
         }

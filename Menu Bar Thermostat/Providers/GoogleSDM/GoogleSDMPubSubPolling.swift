@@ -3,7 +3,7 @@ import Alamofire
 
 extension AppState {
     func startPubSubPolling() {
-        guard !sdmAccessToken.isEmpty, let _ = pubSubSubscriptionResourceName, !pubSubAccessToken.isEmpty else {
+        guard !sdmAccessToken.isEmpty, !authenticationStatus.isRecovering, let _ = pubSubSubscriptionResourceName, !pubSubAccessToken.isEmpty else {
             print("Cannot start Pub/Sub polling: Missing subscription or access token")
             return
         }
@@ -166,8 +166,11 @@ extension AppState {
             case .responseValidationFailed(let reason):
                 if case .unacceptableStatusCode(let code) = reason, code == 404 {
                     pubSubError = .subscriptionNotExists
-                } else if case .unacceptableStatusCode(let code) = reason, (code == 401 || code == 403) {
+                } else if case .unacceptableStatusCode(let code) = reason, code == 401 {
                     pubSubError = .authenticationFailure
+                } else if case .unacceptableStatusCode(let code) = reason, code == 403 {
+                    pubSubError = .permissionDenied
+                    AuthenticationDiagnostics.record("pubsub_permission_denied http_status=403")
                 } else {
                     pubSubError = .invalidResponse
                 }
@@ -189,7 +192,7 @@ extension AppState {
             if responseString.contains("UNAUTHENTICATED") || responseString.contains("PERMISSION_DENIED") {
                 print("Authentication issue detected with Pub/Sub, refreshing token may be needed")
                 if responseString.contains("ACCESS_TOKEN_SCOPE_INSUFFICIENT") {
-                    print("ERROR: Google Sign-In is missing the pubsub scope. Sign out and sign in again.")
+                    print("Pub/Sub service-account scope is insufficient. Check Workload Identity configuration.")
                 }
             }
 

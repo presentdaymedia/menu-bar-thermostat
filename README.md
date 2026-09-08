@@ -57,12 +57,16 @@ The `*.local.xcconfig` and `*.local.plist` files are ignored by Git and should s
 
 After Google Sign-In, Menu Bar Thermostat stores its Google OAuth token in your macOS login Keychain so it can restore your session on relaunch. macOS may ask whether "Menu Bar Thermostat wants to use your confidential information stored in 'auth' in your keychain." This is expected for local token restore; choose "Always Allow" if you want the app to reconnect without asking each launch.
 
+## Connection Recovery
+
+Temporary connection failures are retried automatically without discarding your saved sign-in. Use **Show Connection Log** in the popover or Settings to inspect recent recovery attempts. See [Google connection recovery](AUTHENTICATION.md) for diagnostics, token expiration, and troubleshooting.
+
 ## Tests
 
 Run the macOS XCTest suite before opening a pull request:
 
 ```sh
-xcodebuild -project 'Menu Bar Thermostat.xcodeproj' -scheme 'Menu Bar Thermostat' -configuration Debug -destination 'platform=macOS' -derivedDataPath /tmp/menu-bar-thermostat-test-audit CODE_SIGNING_ALLOWED=NO test
+xcodebuild -project 'Menu Bar Thermostat.xcodeproj' -scheme 'Menu Bar Thermostat' -configuration Debug -destination 'platform=macOS' -derivedDataPath .build/codex-macos -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO test
 ```
 
 ## Privacy And Security

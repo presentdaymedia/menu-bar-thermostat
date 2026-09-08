@@ -88,6 +88,11 @@ class MenuBarStatusItemController: ObservableObject {
             .sink { [weak self] _ in self?.updateStatusItemButton() }
             .store(in: &cancellables)
 
+        appState.$authenticationStatus
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in self?.updateStatusItemButton() }
+            .store(in: &cancellables)
+
         appState.$sdmAccessToken
             .removeDuplicates()
             .receive(on: RunLoop.main)
@@ -129,6 +134,14 @@ class MenuBarStatusItemController: ObservableObject {
             loadingIndicatorTimer?.invalidate()
             loadingIndicatorTimer = nil
             loadingDotCount = 0
+        }
+
+        if appState.authenticationStatus.isRecovering {
+            stopDotAnimation()
+            button.attributedTitle = NSAttributedString(string: "")
+            button.image = NSImage(systemSymbolName: "arrow.triangle.2.circlepath", accessibilityDescription: "Reconnecting")
+            button.imagePosition = .imageOnly
+            return
         }
 
         if appState.sdmAccessToken.isEmpty {

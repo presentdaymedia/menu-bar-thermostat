@@ -35,10 +35,7 @@ struct MenuBarThermostatApp: App {
 
         NSApplication.shared.setActivationPolicy(.accessory)
 
-        if let existingToken = KeychainManager.retrieve(for: "sdmAccessToken") {
-            appStateModel.sdmAccessToken = existingToken
-            print("Keychain: Restored cached access token (\(existingToken.prefix(10))…)")
-        }
+
     }
 
     var body: some Scene {

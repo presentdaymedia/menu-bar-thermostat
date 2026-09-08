@@ -33,6 +33,10 @@ The app communicates with Google APIs for sign-in, Smart Device Management, Pub/
 
 ## Logs
 
+The app keeps a local connection history for sign-in recovery and token-exchange diagnostics. It records event names, timestamps, retry delays, recognized error domains, numeric status codes, and allowlisted OAuth error reasons. This history excludes tokens, raw response bodies, account identifiers, and error descriptions. It is not uploaded automatically.
+
+Use **Show Connection Log** to locate the file. The app retains the current log and one previous log, each approximately capped at 512 KiB. Connection events also appear in macOS unified logging. See [Google connection recovery](AUTHENTICATION.md) for details.
+
 Development builds may print diagnostic messages to the local console. Avoid sharing logs publicly unless you have checked that they do not include project IDs, device identifiers, account details, tokens, or other private data.
 
 ## Unofficial Project

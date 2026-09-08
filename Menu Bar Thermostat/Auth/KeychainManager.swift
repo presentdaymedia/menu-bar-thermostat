@@ -16,9 +16,6 @@ enum KeychainManager {
     static func store(token: String, for key: String) -> Bool {
         guard let data = token.data(using: .utf8) else { return false }
 
-        // Delete any existing item first to make the add logic simpler.
-        delete(for: key)
-
         let query: [String: Any] = [
             kSecClass as String            : kSecClassGenericPassword,
             kSecAttrAccount as String      : key,
@@ -29,7 +26,12 @@ enum KeychainManager {
             kSecAttrAccessible as String   : kSecAttrAccessibleAfterFirstUnlock
         ]
 
-        let status = SecItemAdd(query as CFDictionary, nil)
+        var match = query
+        match.removeValue(forKey: kSecValueData as String)
+        match.removeValue(forKey: kSecAttrAccessible as String)
+        let updateStatus = SecItemUpdate(match as CFDictionary, [kSecValueData as String: data] as CFDictionary)
+        let status = updateStatus == errSecItemNotFound ? SecItemAdd(query as CFDictionary, nil) : updateStatus
+        if status != errSecSuccess { AuthenticationDiagnostics.record("keychain_write_failed status=\(status)") }
         return status == errSecSuccess
     }
 
@@ -48,7 +50,10 @@ enum KeychainManager {
 
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
-        guard status == errSecSuccess, let data = result as? Data else { return nil }
+        guard status == errSecSuccess, let data = result as? Data else {
+            AuthenticationDiagnostics.record("keychain_read_failed status=\(status)")
+            return nil
+        }
         return String(data: data, encoding: .utf8)
     }
 
@@ -64,6 +69,9 @@ enum KeychainManager {
             kSecUseDataProtectionKeychain as String : kCFBooleanTrue as Any
         ]
         let status = SecItemDelete(query as CFDictionary)
+        if status != errSecSuccess && status != errSecItemNotFound {
+            AuthenticationDiagnostics.record("keychain_delete_failed status=\(status)")
+        }
         return status == errSecSuccess || status == errSecItemNotFound
     }
 

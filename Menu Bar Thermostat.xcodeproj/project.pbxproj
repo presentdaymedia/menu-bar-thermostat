@@ -15,6 +15,7 @@
 		0E1CD6632D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement in Frameworks */ = {isa = PBXBuildFile; productRef = 0E1CD6622D21F83E005A2B8C /* GoogleAPIClientForREST_APIManagement */; };
 		0E36E06B2EC8005000F858B8 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 0E36E06A2EC8004F00F858B8 /* AppIcon.icon */; };
 		0E7B7F632E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B7F622E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift */; };
+		AB060001AB060001AB060001 /* WorkloadIdentityTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7B7F622E00F2D4001BD18D /* WorkloadIdentityTokenProvider.swift */; };
 		0E7D7BBB2E01F759000039D4 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 0E7D7BBA2E01F759000039D4 /* LaunchAtLogin */; };
 		0E84F60C2DF8E3F9007C643D /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E84F60B2DF8E3F9007C643D /* KeychainManager.swift */; };
 		0ED9612C2BFD3A8B009BF814 /* MenuBarThermostatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED9612B2BFD3A8B009BF814 /* MenuBarThermostatApp.swift */; };
@@ -502,6 +503,7 @@
 				2F87A0032F87A0032F87A003 /* GoogleSDMPubSubEventMerge.swift in Sources */,
 				2F87A0042F87A0042F87A004 /* GoogleSDMPubSubSubscription.swift in Sources */,
 				C6CEBBDE926FF8ECE93958F7 /* WorkloadIdentityTokenProvider+Stub.swift in Sources */,
+				AB060001AB060001AB060001 /* WorkloadIdentityTokenProvider.swift in Sources */,
 				3B7F16EA8571FE3AC5499A90 /* MenuBarStatusItemController+Stub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

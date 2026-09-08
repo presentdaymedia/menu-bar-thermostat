@@ -2,7 +2,7 @@ import Foundation
 
 extension AppState {
     func scheduleDevicePolling() {
-        guard !sdmAccessToken.isEmpty else {
+        guard !sdmAccessToken.isEmpty, !authenticationStatus.isRecovering else {
             print("AppState: Cannot start device timer - user not signed in")
             return
         }

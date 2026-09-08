@@ -109,9 +109,12 @@ extension AppState {
         case 404:
             print("validatePubSubTopic: Topic returned 404 - treating as missing topic")
             return .missing
-        case 401, 403:
+        case 401:
             print("validatePubSubTopic: Auth error (status \(status)). Will refresh token and retry later.")
             refreshTokenIfNeeded(force: true)
+            return .authorizationFailed
+        case 403:
+            AuthenticationDiagnostics.record("pubsub_topic_permission_denied http_status=403")
             return .authorizationFailed
         default:
             if let error = result.error {
@@ -164,9 +167,12 @@ extension AppState {
         case 404:
             print("ensurePubSubSubscriptionExists: Subscription missing; creating")
             return await createPubSubSubscriptionIfNeeded(topicName: pubSubTopicResourceName, subscriptionId: subscriptionId)
-        case 401, 403:
+        case 401:
             print("ensurePubSubSubscriptionExists: Auth error (status \(status)). Will refresh token and retry later.")
             refreshTokenIfNeeded(force: true)
+            return false
+        case 403:
+            AuthenticationDiagnostics.record("pubsub_subscription_permission_denied http_status=403")
             return false
         default:
             if let data = result.data, let responseString = String(data: data, encoding: .utf8) {
